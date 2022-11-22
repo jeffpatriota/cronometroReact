@@ -1,8 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import './style.css'
-
-// Importando a imagem do cronometro
-import cronometro from './assets/cronometro.png';
 
 class App extends Component {
 
@@ -14,7 +11,8 @@ class App extends Component {
         };
         this.timer = null;
         this.vai = this.vai.bind(this);
-        this.limpar = this.limpar.bind(this);
+        this.zerar = this.zerar.bind(this);
+
     }
 
     vai() {
@@ -25,23 +23,22 @@ class App extends Component {
             this.timer = null;
             state.botao = 'VAI';
         } else {
+
             this.timer = setInterval(() => {
                 let state = this.state;
                 state.numero += 0.1;
                 this.setState(state);
             }, 100);
-            state.botao = 'PAUSAR';
+            state.botao = 'PAUSAR'
         }
-
         this.setState(state);
     }
 
-    limpar() {
+    zerar() {
         if (this.timer !== null) {
             clearInterval(this.timer);
             this.timer = null;
         }
-
         let state = this.state;
         state.numero = 0;
         state.botao = 'VAI';
@@ -52,15 +49,16 @@ class App extends Component {
     render() {
         return (
             <div className="container">
-                <img src={cronometro} className="img" />
+                <img src={require('./assets/cronometro.png')} className="img" />
                 <a className="timer">{this.state.numero.toFixed(1)}</a>
                 <div className="areaBtn">
                     <a className="botao" onClick={this.vai}>{this.state.botao}</a>
-                    <a className="botao" onClick={this.limpar}>LIMPAR</a>
+                    <a className="botao" onClick={this.zerar}>ZERAR</a>
                 </div>
             </div>
         );
     }
-}
 
+
+}
 export default App;
